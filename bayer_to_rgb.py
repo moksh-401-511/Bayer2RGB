@@ -2,12 +2,6 @@
 # Converting 8-bit Bayer format images into RGB and saving into disk
 #---------------------------------------------------------------------
 
-#---------------------------------------------------------------------
-# to run this file, open command terminal and run following instruction:
-# >>> python bayer_to_rgb.py
-#---------------------------------------------------------------------
-
-
 import numpy as np
 import cv2
 import argparse
@@ -19,22 +13,24 @@ def main():
     parser.add_argument("-f", "--file",   type=str, help = "Input binary file name")
     parser.add_argument("-ht", "--height", type=int, help = "Height of image")
     parser.add_argument("-wd", "--width",  type=int, help = "Width of image")
-    parser.add_argument("-by", "--format", type=str, help = "Bayer format")
+    parser.add_argument("-bp", "--pattern", type=str, help = "Bayer pattern")
+    parser.add_argument("-fo", "--format", type=str, help = "RGB image format")
     args = parser.parse_args()
     
     # set variables
     file_name    =  args.file
-    bayer_format =  args.format
+    bayer_pattern=  args.pattern
+    rgbformat    =  args.format
     h, w         =  args.height, args.width
     total_pixels =  h*w
     
-    if bayer_format == 'rggb':
+    if bayer_pattern == 'rggb':
         col, row, g = 0, 0, 1
-    elif bayer_format == 'bggr':
+    elif bayer_pattern == 'bggr':
         col, row, g = 1, 1, 1
-    elif bayer_format == 'grbg':
+    elif bayer_pattern == 'grbg':
         col, row, g = 1, 0, 0
-    elif bayer_format == 'gbrg':
+    elif bayer_pattern == 'gbrg':
         col, row, g = 0, 1, 0
 
     # loading binary file
@@ -73,7 +69,7 @@ def main():
         resized_img = cv2.resize(final_img, (w, h), interpolation = cv2.INTER_LINEAR)
         
         # saving to drive
-        cv2.imwrite(f"rgb_image/{file_name.rpartition('.')[0]}-rgb-{i+1}.png", resized_img)
+        cv2.imwrite(f"rgb_image/{file_name.rpartition('.')[0]}-rgb-{i+1}.{rgbformat}", resized_img)
     print("RGB Conversion Successfully Completed\nImages saved to disk")
         
 if __name__ == '__main__':
