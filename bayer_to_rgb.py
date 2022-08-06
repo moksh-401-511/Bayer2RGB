@@ -11,8 +11,8 @@ def main():
     # parsing arguments from command line
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file",   type=str, help = "Input binary file name")
-    parser.add_argument("-h", "--height", type=int, help = "Height of image")
-    parser.add_argument("-w", "--width",  type=int, help = "Width of image")
+    parser.add_argument("-ht", "--height", type=int, help = "Height of image")
+    parser.add_argument("-wd", "--width",  type=int, help = "Width of image")
     parser.add_argument("-bp", "--pattern", type=str, help = "Bayer pattern")
     parser.add_argument("-fo", "--format", type=str, help = "RGB image format")
     args = parser.parse_args()
